@@ -16,6 +16,19 @@ namespace Assets.Scripts.Balls
 
         public void OnBallLost()
         {
+            SetBallToInitialPosition();
+            ball.StopBall();
+        }
+
+        public void OnWin()
+        {
+            ball.rigidbody2D.velocity = Vector2.zero;
+            ball.GetComponent<RectTransform>().anchoredPosition = pos;
+            ball.StopBall();
+        }
+
+        public void SetBallToInitialPosition()
+        {
             ball.rigidbody2D.velocity = Vector2.zero;
             ball.GetComponent<RectTransform>().anchoredPosition = pos;
         }

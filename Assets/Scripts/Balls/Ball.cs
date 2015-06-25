@@ -27,6 +27,11 @@ namespace Assets.Scripts.Balls
             
         }
 
+        public void StopBall()
+        {
+            IsRunning = false;
+        }
+
         float hitPoint(Vector2 ballPos, Vector2 platformPos, float platformWidth )
         {
             return (ballPos.x - platformPos.x)/platformWidth;
@@ -49,7 +54,6 @@ namespace Assets.Scripts.Balls
         {
             if (Lost != null)
             {
-                IsRunning = false;
                 Lost(this);
             }
         }

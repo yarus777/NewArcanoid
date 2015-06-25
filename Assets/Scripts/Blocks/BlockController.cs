@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Balls;
+using Assets.Scripts.Platforms;
 using UnityEngine;
 
 namespace Assets.Scripts.Blocks
 {
     public class BlockController : MonoBehaviour
     {
+
+        private List<Block> blockList = new List<Block>();
 
         public void Create(List<BlockInfo> blocks)
         {
@@ -33,6 +37,7 @@ namespace Assets.Scripts.Blocks
                 var block = blockObject.GetComponent<Block>();
                 block.Init(blocks[i]);
                 block.transform.localScale = Vector3.one;
+                blockList.Add(block);
                 block.Striked += OnBlockStriked;
             }
         }
@@ -40,10 +45,30 @@ namespace Assets.Scripts.Blocks
         private void OnBlockStriked(Block block, bool wasStriked)
         {
             if (wasStriked)
-            Destroy(block.gameObject);
+            {
+                Destroy(block.gameObject);
+                blockList.Remove(block);
+            }
+            if (blockList.Count == 0)
+            {
+                Debug.Log("You win!");
+                OnPlayerWin();
+            }
+
             OnBlockTouched(block);
         }
 
+        public delegate void OnplayerWinDelegate();
+
+        public event OnplayerWinDelegate Win;
+
+        public void OnPlayerWin()
+        {
+            if (Win != null)
+            {
+                Win();
+            }
+        }
 
         public delegate void OnBlockTouchedDelegate(Block block);
 

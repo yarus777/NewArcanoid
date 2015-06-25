@@ -4,18 +4,28 @@ namespace Assets.Scripts.Platforms
 {
     public class PlatformController : MonoBehaviour
     {
-
+        public Platform platform;
         private Vector2 pos;
 
         void Start ()
         {
-            pos = GetComponent<RectTransform>().anchoredPosition;
+            pos = platform.GetComponent<RectTransform>().anchoredPosition;
         }
 
 
         public void OnBallLost()
         {
-            GetComponent<RectTransform>().anchoredPosition = pos;
+           SetPlatformToInitialPosition();
+        }
+
+        public void OnWin()
+        {
+            SetPlatformToInitialPosition();
+        }
+
+        public void SetPlatformToInitialPosition()
+        {
+            platform.GetComponent<RectTransform>().anchoredPosition = pos;
         }
     }
 }

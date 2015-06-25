@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Xml.Serialization;
 
 namespace Assets.Scripts.Blocks
 {
@@ -11,9 +12,11 @@ namespace Assets.Scripts.Blocks
            Stone,
            Metal
        }
-
+       [XmlElement("Type")]
         public BlockType Type;
+       [XmlElement("X")]
         public int X;
+       [XmlElement("Y")]
         public int Y;
     }
 }
