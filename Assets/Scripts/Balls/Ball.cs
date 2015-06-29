@@ -6,9 +6,9 @@ namespace Assets.Scripts.Balls
     public class Ball : MonoBehaviour
     {
 
-        private bool IsRunning = false;
+        public bool IsRunning = false;
         private Vector2 ballInitialForce;
-        private float initialSpeed = 500;
+        private float initialSpeed = 400;
         public Canvas canvas;
 
         void Start () {
@@ -32,6 +32,13 @@ namespace Assets.Scripts.Balls
             IsRunning = false;
         }
 
+        public float GetBallSpeed(float platformSpeed)
+        {
+            if (platformSpeed == 0)
+                return 1;
+            return Mathf.Abs(platformSpeed)/initialSpeed;
+        }
+
         float hitPoint(Vector2 ballPos, Vector2 platformPos, float platformWidth )
         {
             return (ballPos.x - platformPos.x)/platformWidth;
@@ -41,8 +48,8 @@ namespace Assets.Scripts.Balls
             if (col.gameObject.name == "Platform" && IsRunning)
             {
                 float x = hitPoint(transform.position, col.transform.position, col.collider.bounds.size.x);
-                Vector2 dir = new Vector2(x,1).normalized;
-                rigidbody2D.velocity = dir * initialSpeed;
+                Vector2 dir = new Vector2(x,1).normalized;              
+                rigidbody2D.velocity = dir * initialSpeed * GetBallSpeed(col.rigidbody.velocity.x);
             }
         }
 
@@ -55,6 +62,7 @@ namespace Assets.Scripts.Balls
             if (Lost != null)
             {
                 Lost(this);
+               
             }
         }
 

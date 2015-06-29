@@ -11,7 +11,7 @@ public class Block : MonoBehaviour {
 
     public void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.name == "Ball")
+        if (col.gameObject.tag == "Ball")
         OnBallTouched();
     }
 

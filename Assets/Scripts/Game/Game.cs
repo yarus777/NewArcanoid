@@ -6,6 +6,7 @@ using Assets.Scripts.Balls;
 using Assets.Scripts.Blocks;
 using Assets.Scripts.Platforms;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Assets.Scripts
 {

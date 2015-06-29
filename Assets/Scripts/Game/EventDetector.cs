@@ -10,10 +10,12 @@ namespace Assets.Scripts
         public Ball ball;
         public Platform platform;
         private Camera camera;
+        private float yballpos;
 
         void Start () 
         {
             camera = Camera.main;
+            yballpos = ball.transform.position.y;
         }
 
         public void OnscreenClick()
@@ -32,7 +34,10 @@ namespace Assets.Scripts
             }
             Vector2 pos = camera.ScreenToWorldPoint(Input.mousePosition);
             platform.rigidbody2D.velocity = new Vector2((pos.x - prevpos) / Time.fixedDeltaTime, 0);
+            if (!ball.IsRunning)
+            ball.transform.position = new Vector2(platform.transform.position.x, yballpos);
             prevpos = pos.x;
+            
         }
 
         public void OnFingerUp()
